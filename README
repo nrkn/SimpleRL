@@ -6,4 +6,4 @@ A simple, minimal RogueLike implemented in multiple languages.
 
 Trying to follow the idioms of those languages and keep things very, very simple - which is why the initial version doesn't make use of objects in most of the languages. 
 
-That will be one of the first changes though.
+A naive oo refactoring is in the branch oo
