@@ -1,4 +1,8 @@
-﻿open System
+﻿// taken from stackoverflow:
+// http://stackoverflow.com/questions/4495993/very-simple-roguelike-in-f-making-it-more-functional
+// http://stackoverflow.com/users/17919/gradbot
+
+open System
 
 // use a third party vector class for 2D and 3D positions
 // or write your own for pratice
