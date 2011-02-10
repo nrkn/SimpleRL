@@ -3,11 +3,9 @@ SimpleRL
 https://github.com/nrkn/SimpleRL
 nrkn.com@gmail.com
 
-A simple, minimal RogueLike implemented in multiple languages.
+A simple, minimal RogueLike demo (an @ moving around a hardcoded map) implemented in multiple languages.
 
 Trying to follow the idioms of those languages and keep things very, very simple - which is why the initial version doesn't make use of objects in most of the languages. 
-
-Initially just an @ moving around a hardcoded map.
 
 Would love to see more languages in here or improvements made by people who know any of these languages better than I do.
 
