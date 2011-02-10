@@ -1,40 +1,37 @@
-viewport = document.getElementById( "viewport" )
+viewport = document.getElementById "viewport"
 
-map = [ 
-  '####  ####', 
-  '#  ####  #', 
-  '#        #', 
-  '##      ##', 
-  ' #      # ', 
-  ' #      # ', 
-  '##      ##', 
-  '#        #', 
-  '#  ####  #', 
-  '####  ####' 
-]
+map = (row.split '' for row in '''
+   ####  ####
+   #  ####  #
+   #        #
+   ##      ##
+    #      # 
+    #      # 
+   ##      ##
+   #        #
+   #  ####  #
+   ####  ####
+'''.split '\n')
 
 x = y = 2
 
-tick = ( e ) ->
-  setTile ' '
-  
+[LEFT, DOWN, RIGHT, UP] = [37..40]
+
+handleKeyup = ( e ) ->
   switch e.keyCode
-    when 37 then movePlayer x - 1, y
-    when 38 then movePlayer x, y - 1
-    when 39 then movePlayer x + 1, y
-    when 40 then movePlayer x, y + 1
+    when LEFT  then movePlayer x - 1, y
+    when RIGHT then movePlayer x + 1, y
+    when UP    then movePlayer x, y + 1
+    when DOWN  then movePlayer x, y - 1
 
-  setTile '@'
-  viewport.innerHTML = map.join '<br />'
-
-setTile = ( tile ) ->
-  map[ y ] = map[ y ].substr( 0, x ) + tile + map[ y ].substr( x + 1 )
-  
 movePlayer = ( newX, newY ) ->
-  if map[ newY ][ newX ] == ' ' 
-    x = newX
-    y = newY
+  if map[ newY ][ newX ] == ' '
+    map[ y ][ x ] = ' '
+    [x, y] = [newX, newY]
+    map[ y ][ x ] = '@'
+    viewport.innerHTML = (row.join '' for row in map).join '\n'
 
-document.addEventListener 'keyup', tick, 0
+document.addEventListener 'keyup', handleKeyup, false
 
-tick keyCode: null
+# Fake a keypress to render the map immediately
+handleKeyup keyCode:RIGHT
