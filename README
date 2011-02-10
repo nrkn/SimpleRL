@@ -10,6 +10,7 @@ Trying to follow the idioms of those languages and keep things very, very simple
 Would love to see more languages in here or improvements made by people who know any of these languages better than I do.
 
 Planned forks, implenting the following in all languages:
+  roguelike golf - smallest (bytes, not chars) implementation with same functionality
   very naive oo version
     more expandable and modular version
       a very simple map generator
