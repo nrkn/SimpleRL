@@ -1,6 +1,0 @@
-C:\Users\Nik Coughlin\SimpleRL\csharp\bin\Debug\SimpleRL.exe
-C:\Users\Nik Coughlin\SimpleRL\csharp\bin\Debug\SimpleRL.pdb
-C:\Users\Nik Coughlin\SimpleRL\csharp\obj\x86\Debug\ResolveAssemblyReference.cache
-C:\Users\Nik Coughlin\SimpleRL\csharp\obj\x86\Debug\SimpleRL.exe
-C:\Users\Nik Coughlin\SimpleRL\csharp\obj\x86\Debug\SimpleRL.pdb
-C:\Users\Nik Coughlin\SimpleRL\csharp\bin\Debug\SimpleRL.exe.config
