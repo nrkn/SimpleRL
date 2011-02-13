@@ -1,3 +1,10 @@
 By copx
 
+The problem with this is that most languages do not include
+arbitrary console I/O in their standard libraries.
+
+I wrote a C version, but this depends on the non-standard conio
+library. You can actually compile and run this on a 80286 running
+DOS, but a lame 64-bit Windows 7 workstation will work, too ;) 
+
 http://groups.google.com/group/rec.games.roguelike.development/browse_thread/thread/48e8a057ad492219/399205da22f080d7
