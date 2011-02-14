@@ -36,7 +36,6 @@ void simple_rl(void)
 
                 P_('@');
         }}
-
 }
 
 int main(void) { simple_rl(); return 0; } 
