@@ -1,0 +1,4 @@
+By wu wei
+
+Windows requires a third-party wrapper around PDCurses, choose the appropriate
+version from: http://www.lfd.uci.edu/~gohlke/pythonlibs/#curses
