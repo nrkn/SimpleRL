@@ -1,0 +1,7 @@
+SimpleRL in Factor (http://factorcode.org/) by Risto Saarelma
+
+This version uses the built-in Factor UI framework.
+
+To run, copy the `simplerl` directory with `simplerl.factor` source file into
+the `work/` subdirectory in your Factor directory tree, and type `"simplerl"
+run` in the Factor listener.
