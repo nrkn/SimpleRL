@@ -1,0 +1,9 @@
+By Nik Coughlin
+
+OK this was fun to do :)
+
+I wrote this using the Dartmouth BASIC 4th Edition (1968) specs and then tested
+it with QB and GW Basic. It works in those and as far as I can tell it should 
+run on pretty much any simple BASIC.
+
+I tried to keep it idiomatic but it could probably be improved a lot.
