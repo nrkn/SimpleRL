@@ -14,17 +14,17 @@ $map = [
   '####  ####' 
 ]
 
+
 $x = $y = 2
 
-def drawTile( tile )
+def draw_tile( tile )
   Curses.setpos( $y, $x )
-  Curses::addstr( tile )
+  Curses.addstr( tile )
 end
 
-def movePlayer( newX, newY )
-  if( $map[ newY ][ newX, 1 ] == ' ' ) then
-    $x = newX
-    $y = newY
+def move_player( x, y )
+  if( $map[ y ][ x, 1 ] == " " )
+    $x, $y = x, y
   end
 end
 
@@ -35,23 +35,17 @@ screen.keypad( true )
 
 $map.each{ |row| Curses::addstr( row + "\n" ) }
 
-drawTile( '@' )
+draw_tile( '@' )
 
-c = nil
-
-begin
-  drawTile( ' ' )
+until ( c = screen.getch ) == ?q
+  draw_tile( ' ' )
   
-  case c
-    when KEY_UP
-      movePlayer( $x, $y - 1 )
-    when KEY_DOWN
-      movePlayer( $x, $y + 1 )
-    when KEY_LEFT
-      movePlayer( $x - 1, $y )
-    when KEY_RIGHT
-      movePlayer( $x + 1, $y )
-  end
+  keys = { KEY_UP => [$x, $y - 1],
+           KEY_DOWN => [$x, $y + 1],
+           KEY_LEFT => [$x - 1, $y],
+           KEY_RIGHT => [$x + 1, $y] }
+    
+  move_player( *keys[c] ) if keys[c]
   
-  drawTile( '@' )
-end until ( c = screen.getch ) == ?q
+  draw_tile( '@' )
+end
