@@ -18,8 +18,8 @@ $map = [
 $x = $y = 2
 
 def draw_tile( tile )
-  Curses.setpos( $y, $x )
-  Curses.addstr( tile )
+  setpos( $y, $x )
+  addstr( tile )
 end
 
 def move_player( x, y )
@@ -28,12 +28,12 @@ def move_player( x, y )
   end
 end
 
-screen = Curses.init_screen
-Curses.noecho
-Curses.curs_set( 0 )
+screen = init_screen
+noecho
+curs_set( 0 )
 screen.keypad( true )
 
-$map.each{ |row| Curses::addstr( row + "\n" ) }
+$map.each{ |row| addstr( row + "\n" ) }
 
 draw_tile( '@' )
 

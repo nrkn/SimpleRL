@@ -1,0 +1,23 @@
+By copx
+
+I implemented SimpleRL in C++ but
+that's not the point. I implemented it on top of SDL,
+demonstrating the "emulated ASCII" technique. So
+this should be useful for newbies who want to do
+that.
+
+This code depends on a font bitmap.
+
+It's the PDCurses SDL font I use in my current project,
+one can replace that with a standard BIOS font from
+the same collection to get the straight DOS look.
+If you wonder, my current project
+(http://biron.sourceforge.net/) is not a roguelike,
+but a tactical RPG with perma-death, thus still
+somewhat close.
+Finally, because this is for newbies here is how
+you compile an SDL app with straight MinGW (i.e. no MSYS):
+
+g++ -Os SimpleRL.cpp -lmingw32 -lSDLmain -lSDL -mwindows
+
+You will have to install SDL first of course.  
