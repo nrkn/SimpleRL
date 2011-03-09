@@ -1,4 +1,4 @@
-"Smalltalk test"
+"This only works with GNU Smalltalk."
 
 Object subclass: SimpleRL [
     | map px py |
@@ -9,6 +9,7 @@ Object subclass: SimpleRL [
     ]
 
     mapAtY: y x: x [
+        "Get the character at (y, x), 0-based."
         ^(map at: y + 1) at: x + 1
     ]
 
@@ -32,30 +33,32 @@ Object subclass: SimpleRL [
                  '#        #'
                  '#  ####  #'
                  '####  ####').
+        "player coordinates"
+        px := 1.  py := 1.
+
+        "Draw the map and the player."
         1 to: map size do: [:i |
           NCWindow mvaddstr: i - 1 x: 0 str: (map at: i)].
-        px := 1.  py := 1.
         NCWindow mvaddch: py x: px ch: $@;
             refresh.
 
+        "Create a dictionary mapping keypresses to dx@dy moves.
+         The GNU Smalltalk NCurses bindings have bad values for
+         keyUp/Down/etc, at least on my system, so I manually
+         include the key codes that I actually observe, along
+         with the rogue keys, because I actually prefer those."
         moves := Dictionary new.
-        {{{$k asInteger. NCWindow keyUp. 259}. 0@-1}.
-         {{$j asInteger. NCWindow keyDown. 258}. 0@1}.
-         {{$h asInteger. NCWindow keyLeft. 260}. -1@0}.
-         {{$l asInteger. NCWindow keyRight. 261}. 1@0}} do: [:list |
-            (list at: 1) do: [:key | moves at: key put: (list at: 0)]
+        {{{$k asInteger. NCWindow keyUp.    259}.  0@-1}.
+         {{$j asInteger. NCWindow keyDown.  258}.  0@ 1}.
+         {{$h asInteger. NCWindow keyLeft.  260}. -1@ 0}.
+         {{$l asInteger. NCWindow keyRight. 261}.  1@ 0}} do: [:keysPoint |
+             (keysPoint at: 1) do: [:key |
+                 moves at: key put: (keysPoint at: 2)]
         ].
 
         [ (ch := NCWindow stdscr wgetch) = $q asInteger] whileFalse: [
             NCWindow mvaddch: py x: px ch: (Character space).
-            ({$k asInteger. NCWindow keyUp. 259} includes: ch)
-                ifTrue: [self moveBy: 0@-1]
-                ifFalse: [({$j asInteger. NCWindow keyDown. 258} includes: ch)
-                  ifTrue: [self moveBy: 0@1]
-                  ifFalse: [({$h asInteger. NCWindow keyLeft. 260} includes: ch)
-                    ifTrue: [self moveBy: -1@0]
-                    ifFalse: [({$l asInteger. NCWindow keyRight. 261} includes: ch)
-                      ifTrue: [self moveBy: 1@0] ]]].
+            moves at: ch ifPresent: [:delta | self moveBy: delta].
             NCWindow mvaddch: py x: px ch: $@;
                 refresh.
         ]

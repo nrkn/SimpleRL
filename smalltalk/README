@@ -1,3 +1,6 @@
-By Johann Hibschman
-
 This only works with GNU Smalltalk.
+
+Why?  Most Smalltalks use an image-based development system, so they
+tend to function only within their own sandbox.  GNU Smalltalk
+provides some custom syntax to enable traditional file-based
+development.
