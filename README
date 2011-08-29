@@ -14,8 +14,9 @@ NEW:
   bytes as possible:
     https://github.com/nrkn/SimpleRLGolf
 
-Planned forks, implenting the following in all languages:
+Planned forks, implenting the following in all languages (where OO is appropriate):
   very naive oo version
+    https://github.com/nrkn/SimpleOORL
     more expandable and modular version
       a very simple map generator
         from there, in unknown order:
