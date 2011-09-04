@@ -18,6 +18,11 @@
 (def frame (JFrame.))
 (.setEditable pane false)
 (.setFont pane (Font. "monospaced", Font/PLAIN 14))
+(.setText pane (reduce #(str %1 %2) (map #(apply str %) world)))
+(.setContentPane frame pane)
+;(.setDefaultCloseOperation frame JFrame/EXIT_ON_CLOSE)
+(.pack frame)
+(.setVisible frame true)
 
 (def x (ref 5))
 (def y (ref 5))
