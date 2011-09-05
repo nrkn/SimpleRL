@@ -35,10 +35,13 @@
     world-str))
 
 (defn move [dx dy]
-  (dosync
-   (alter x + dx)
-   (alter y + dy))
-  (refresh))
+  (let [new-x (+ (deref x) dx)
+	new-y (+ (deref y) dy)]
+    (when (= ((world new-y) new-x) \space)
+      (dosync
+       (alter x + dx)
+       (alter y + dy))
+      (refresh))))
 
 (def listener (proxy [KeyAdapter] []
 		(keyPressed [e]
