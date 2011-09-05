@@ -15,8 +15,6 @@
 	    (vec (seq "#  ####  #\n"))
 	    (vec (seq "####  ####\n"))])
 
-			     
-
 (def x (ref 5))
 (def y (ref 5))
 
@@ -62,6 +60,3 @@
 (.setDefaultCloseOperation frame JFrame/DISPOSE_ON_CLOSE)
 (.pack frame)
 (.setVisible frame true)
-
-      
-	     
