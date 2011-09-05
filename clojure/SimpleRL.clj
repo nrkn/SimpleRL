@@ -18,7 +18,7 @@
 (def frame (JFrame.))
 (.setEditable pane false)
 (.setFont pane (Font. "monospaced", Font/PLAIN 14))
-(.setText pane (reduce #(str %1 %2) (map #(apply str %) world)))
+(.setText pane (str-world-with-hero))
 (.setContentPane frame pane)
 (.setDefaultCloseOperation frame JFrame/DISPOSE_ON_CLOSE)
 (.pack frame)
@@ -33,7 +33,10 @@
 	row (world y)]
     (assoc world y (assoc row x \@))))
 
-
+(defn str-world-with-hero []
+  (let [world-seq (map #(apply str %) (world-with-hero))
+	world-str (reduce str world-seq)]
+    world-str))
 
       
 	     
