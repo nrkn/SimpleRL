@@ -17,9 +17,8 @@
 
 (def x (ref 5))
 (def y (ref 5))
-
-(defn refresh []
-  (.setText pane (str-world-with-hero)))
+(def pane (JTextArea.))
+(def frame (JFrame.))
 
 (defn world-with-hero []
   (let [x (deref x)
@@ -31,6 +30,9 @@
   (let [world-seq (map #(apply str %) (world-with-hero))
 	world-str (reduce str world-seq)]
     world-str))
+
+(defn refresh []
+  (.setText pane (str-world-with-hero)))
 
 (defn move [dx dy]
   (let [new-x (+ (deref x) dx)
@@ -50,9 +52,7 @@
 			       (= key-code KeyEvent/VK_UP) (move 0 -1)
 			       (= key-code KeyEvent/VK_DOWN) (move 0 1))))))
 
-(def pane (JTextArea.))
 (.addKeyListener pane listener)
-(def frame (JFrame.))
 (.setEditable pane false)
 (.setFont pane (Font. "monospaced", Font/PLAIN 14))
 (refresh)
