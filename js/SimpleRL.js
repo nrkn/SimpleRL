@@ -50,7 +50,6 @@
         viewport.innerHTML = map.join('<br />');
     }
 
-
     document.addEventListener('keyup', tick, false);
     tick({keyCode: null});
 }());
