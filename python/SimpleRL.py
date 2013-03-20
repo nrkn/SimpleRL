@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import curses
-from curses import KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT
 
 
 MAP = [
@@ -19,10 +18,10 @@ MAP = [
 ]
 KEY_QUIT = ord('q')
 MOVEMENT = {
-    KEY_UP: lambda x, y: (x, y-1),
-    KEY_DOWN: lambda x, y: (x, y+1),
-    KEY_LEFT: lambda x, y: (x-1, y),
-    KEY_RIGHT: lambda x, y: (x+1, y),
+    curses.KEY_UP: lambda x, y: (x, y-1),
+    curses.KEY_DOWN: lambda x, y: (x, y+1),
+    curses.KEY_LEFT: lambda x, y: (x-1, y),
+    curses.KEY_RIGHT: lambda x, y: (x+1, y),
 }
 
 
@@ -33,7 +32,9 @@ def main(screen):
         screen.addstr(y, x, tile)
 
     def move_player(new_x, new_y):
-        return (new_x, new_y) if MAP[new_x][new_y] == ' ' else (x, y)
+        if MAP[new_x][new_y] == ' ':
+            return new_x, new_y
+        return x, y
 
     for row in MAP:
         screen.addstr(row + '\n')
@@ -41,10 +42,12 @@ def main(screen):
     while key != KEY_QUIT:
         draw_tile('@')
         key = screen.getch()
-
-        if key in [KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT]:
-            draw_tile(' ')
+        try:
             new_position = MOVEMENT[key](x, y)
+        except KeyError:
+            pass
+        else:
+            draw_tile(' ')
             x, y = move_player(*new_position)
 
 
