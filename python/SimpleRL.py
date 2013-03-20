@@ -17,11 +17,11 @@ MAP = [
     '####  ####',
 ]
 KEY_QUIT = ord('q')
-MOVEMENT = {
-    curses.KEY_UP: lambda x, y: (x, y-1),
-    curses.KEY_DOWN: lambda x, y: (x, y+1),
-    curses.KEY_LEFT: lambda x, y: (x-1, y),
-    curses.KEY_RIGHT: lambda x, y: (x+1, y),
+DIRECTIONS = {
+    curses.KEY_UP: (0, -1),
+    curses.KEY_RIGHT: (1, 0),
+    curses.KEY_DOWN: (0, 1),
+    curses.KEY_LEFT: (-1, 0),
 }
 
 
@@ -43,12 +43,12 @@ def main(screen):
         draw_tile('@')
         key = screen.getch()
         try:
-            new_position = MOVEMENT[key](x, y)
+            dx, dy = DIRECTIONS[key]
         except KeyError:
             pass
         else:
             draw_tile(' ')
-            x, y = move_player(*new_position)
+            x, y = move_player(x + dx, y + dy)
 
 
 if __name__ == '__main__':
