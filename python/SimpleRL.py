@@ -32,7 +32,7 @@ def main(screen):
         screen.addstr(y, x, tile)
 
     def move_player(new_x, new_y):
-        if MAP[new_x][new_y] == ' ':
+        if MAP[new_y][new_x] == ' ':
             return new_x, new_y
         return x, y
 
