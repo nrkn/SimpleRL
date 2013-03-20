@@ -25,32 +25,35 @@ DIRECTIONS = {
 }
 
 
-def main(screen):
-    x, y = 2, 2
+class Game(object):
+    def __init__(self, screen):
+        self.screen = screen
+        self.x, self.y = 2, 2
+        self.main()
 
-    def draw_tile(tile):
-        screen.addstr(y, x, tile)
+    def draw_tile(self, tile):
+        self.screen.addstr(self.y, self.x, tile)
 
-    def move_player(new_x, new_y):
-        if MAP[new_y][new_x] == ' ':
-            return new_x, new_y
-        return x, y
+    def move_player(self, (dx, dy)):
+        x, y = self.x + dx, self.y + dy
+        if MAP[y][x] == ' ':
+            self.x, self.y = x, y
 
-    for row in MAP:
-        screen.addstr(row + '\n')
-    key = None
-    while key != KEY_QUIT:
-        draw_tile('@')
-        key = screen.getch()
-        try:
-            dx, dy = DIRECTIONS[key]
-        except KeyError:
-            pass
-        else:
-            draw_tile(' ')
-            x, y = move_player(x + dx, y + dy)
-
+    def main(self):
+        for row in MAP:
+            self.screen.addstr(row + '\n')
+        key = None
+        while key != KEY_QUIT:
+            self.draw_tile('@')
+            key = self.screen.getch()
+            try:
+                direction = DIRECTIONS[key]
+            except KeyError:
+                pass
+            else:
+                self.draw_tile(' ')
+                self.move_player(direction)
 
 if __name__ == '__main__':
-    curses.wrapper(main)
+    curses.wrapper(Game)
 
