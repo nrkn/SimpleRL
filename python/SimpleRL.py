@@ -33,7 +33,6 @@ class Game(object):
     def __init__(self, screen):
         self.screen = screen
         self.x, self.y = 2, 2
-        self.main()
 
     def move_player(self, (dx, dy)):
         x, y = self.x + dx, self.y + dy
@@ -61,5 +60,5 @@ class Game(object):
 
 
 if __name__ == '__main__':
-    curses.wrapper(Game)
+    curses.wrapper(lambda screen: Game(screen).main())
 
