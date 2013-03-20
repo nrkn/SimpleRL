@@ -25,6 +25,10 @@ DIRECTIONS = {
 }
 
 
+class BlockedMovement(Exception):
+    pass
+
+
 class Game(object):
     def __init__(self, screen):
         self.screen = screen
@@ -33,8 +37,9 @@ class Game(object):
 
     def move_player(self, (dx, dy)):
         x, y = self.x + dx, self.y + dy
-        if MAP[y][x] == ' ':
-            self.x, self.y = x, y
+        if MAP[y][x] != ' ':
+            raise BlockedMovement()
+        self.x, self.y = x, y
 
     def main(self):
         for row in MAP:
@@ -48,9 +53,11 @@ class Game(object):
             except KeyError:
                 pass
             else:
-                self.draw_tile(' ')
                 self.screen.addstr(self.y, self.x, ' ')
-                self.move_player(direction)
+                try:
+                    self.move_player(direction)
+                except BlockedMovement:
+                    pass
 
 
 if __name__ == '__main__':
