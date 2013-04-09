@@ -1,51 +1,64 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import curses
-from curses import KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT
+
 
 MAP = [
-  '####  ####',
-  '#  ####  #',
-  '#        #',
-  '##      ##',
-  ' #      # ',
-  ' #      # ',
-  '##      ##',
-  '#        #',
-  '#  ####  #',
-  '####  ####',
+    '####  ####',
+    '#  ####  #',
+    '#        #',
+    '##      ##',
+    ' #      # ',
+    ' #      # ',
+    '##      ##',
+    '#        #',
+    '#  ####  #',
+    '####  ####',
 ]
-
 KEY_QUIT = ord('q')
-
-MOVEMENT = {
-  KEY_UP:     lambda x, y: (x, y-1),
-  KEY_DOWN:   lambda x, y: (x, y+1),
-  KEY_LEFT:   lambda x, y: (x-1, y),
-  KEY_RIGHT:  lambda x, y: (x+1, y),
+DIRECTIONS = {
+    curses.KEY_UP: (0, -1),
+    curses.KEY_RIGHT: (1, 0),
+    curses.KEY_DOWN: (0, 1),
+    curses.KEY_LEFT: (-1, 0),
 }
 
-def main(screen):
-  x, y = 2, 2
-  
-  def draw_tile( tile ):
-    screen.addstr(y, x, tile)
 
-  def move_player( newX, newY ):
-    return (newX, newY) if ( MAP[newX][newY] == ' ') else (x, y)
+class BlockedMovement(Exception):
+    pass
 
-  for row in MAP: screen.addstr(row + '\n')
-  
-  key = None
-  
-  while key != KEY_QUIT:
-    draw_tile('@')
-    key = screen.getch()
 
-    if key in [KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT]:
-      draw_tile(' ')
-      newXY = MOVEMENT[key](x, y)
-      x,y = move_player(*newXY)
+class Game(object):
+    def __init__(self, screen):
+        self.screen = screen
+        self.x, self.y = 2, 2
+
+    def move_player(self, (dx, dy)):
+        x, y = self.x + dx, self.y + dy
+        if MAP[y][x] != ' ':
+            raise BlockedMovement()
+        self.x, self.y = x, y
+
+    def main(self):
+        for row in MAP:
+            self.screen.addstr(row + '\n')
+        key = None
+        while key != KEY_QUIT:
+            self.screen.addstr(self.y, self.x, '@')
+            key = self.screen.getch()
+            try:
+                direction = DIRECTIONS[key]
+            except KeyError:
+                pass
+            else:
+                self.screen.addstr(self.y, self.x, ' ')
+                try:
+                    self.move_player(direction)
+                except BlockedMovement:
+                    pass
+
 
 if __name__ == '__main__':
-  curses.wrapper(main)
+    curses.wrapper(lambda screen: Game(screen).main())
+
