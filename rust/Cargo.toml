@@ -1,0 +1,8 @@
+[package]
+name = "SimpleRL"
+version = "0.1.0"
+authors = ["Risto Saarelma <risto.saarelma@iki.fi>"]
+description = "A minimal roguelike demo"
+license = "Public Domain"
+
+[dependencies.termbox-sys]

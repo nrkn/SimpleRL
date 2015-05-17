@@ -1,0 +1,5 @@
+SimpleRL in Rust by Risto Saarelma
+
+Uses termbox as backend. Compiles with Rust 1.0.
+
+To run, install Rust and type `cargo run`.
