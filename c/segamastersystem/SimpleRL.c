@@ -13,11 +13,31 @@ const char *map =
     "#        #\n"
     "#  ####  #\n"
     "####  ####\n";
-/*
+
+void draw_map(unsigned char x, unsigned char y, char *map) {
+  char *o, count;
+  unsigned int buffer[12], *d;
+
+  o = map; d = buffer; count = 0;
+  while (*o) {
+    if (*o == '\n') {
+      SMS_loadTileMap(x, y, buffer, count << 1);
+      d = buffer; count = 0;
+      y++;
+    } else {
+      *d = *o - 32;
+      d++; count++;
+    }
+    o++;
+  }
+}
+
 int px = 1, py = 1;
 void move_to(int x, int y) { if (map[y * 11 + x] == ' ') { px = x; py = y; } }
+
 void simple_rl(void)
 {
+  /*
     int key;
     initscr(); noecho(); curs_set(0); keypad(stdscr, 1);
     mvaddstr(0, 0, map); mvaddch(py, px, '@');
@@ -32,10 +52,8 @@ void simple_rl(void)
         mvaddch(py, px, '@');
     }
     endwin();
+    */
 }
-
-int main(void) { simple_rl(); return 0; }
-*/
 
 void load_font (void) {
 	unsigned char i, j;
@@ -58,6 +76,8 @@ void main(void) {
   unsigned char i;
 
   load_font();
+  draw_map(10, 6, map);
+  SMS_displayOn();
 
   for (i=0;i<16;i++)
     SMS_setBGPaletteColor(i,0x00);    // black
