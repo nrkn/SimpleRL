@@ -44,18 +44,27 @@ void move_to(int x, int y) { if (map[y * 11 + x] == ' ') { px = x; py = y; } }
 
 void simple_rl(void)
 {
-  int key;
+  unsigned short kp;
 
   draw_map(PF_OFFSET_X, PF_OFFSET_Y, map);
-  draw_char(py, px, '@');
+  draw_char(px, py, '@');
   SMS_displayOn();
 
   while (true) {
+    kp = SMS_getKeysPressed();
+
     SMS_waitForVBlank();
+
+    draw_char(px, py, ' ');
+
+    if (kp & PORT_A_KEY_UP) { move_to(px, py - 1); }
+    if (kp & PORT_A_KEY_DOWN) { move_to(px, py + 1); }
+    if (kp & PORT_A_KEY_LEFT) { move_to(px - 1, py); }
+    if (kp & PORT_A_KEY_RIGHT) { move_to(px + 1, py); }
+
+    draw_char(px, py, '@');
   }
   /*
-    initscr(); noecho(); curs_set(0); keypad(stdscr, 1);
-    mvaddstr(0, 0, map); mvaddch(py, px, '@');
     while ((key = getch()) != 'q') {
         mvaddch(py, px, ' ');
         switch (key) {
