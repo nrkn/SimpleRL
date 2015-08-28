@@ -2,6 +2,9 @@
 #include "SMSlib/src/SMSlib.h"
 #include "gfx.h"
 
+#define PF_OFFSET_X 10
+#define PF_OFFSET_Y 6
+
 const char *map =
     "####  ####\n"
     "#  ####  #\n"
@@ -32,13 +35,25 @@ void draw_map(unsigned char x, unsigned char y, char *map) {
   }
 }
 
+void draw_char(unsigned char x, unsigned char y, char c) {
+  SMS_setTileatXY(x + PF_OFFSET_X, y + PF_OFFSET_Y, c - 32);
+}
+
 int px = 1, py = 1;
 void move_to(int x, int y) { if (map[y * 11 + x] == ' ') { px = x; py = y; } }
 
 void simple_rl(void)
 {
+  int key;
+
+  draw_map(PF_OFFSET_X, PF_OFFSET_Y, map);
+  draw_char(py, px, '@');
+  SMS_displayOn();
+
+  while (true) {
+    SMS_waitForVBlank();
+  }
   /*
-    int key;
     initscr(); noecho(); curs_set(0); keypad(stdscr, 1);
     mvaddstr(0, 0, map); mvaddch(py, px, '@');
     while ((key = getch()) != 'q') {
@@ -76,16 +91,12 @@ void main(void) {
   unsigned char i;
 
   load_font();
-  draw_map(10, 6, map);
-  SMS_displayOn();
 
   for (i=0;i<16;i++)
     SMS_setBGPaletteColor(i,0x00);    // black
   SMS_setBGPaletteColor(01,0x3f);     // white
 
-  while (true) {
-    SMS_waitForVBlank();
-  }
+  simple_rl();
 }
 
 SMS_EMBED_SEGA_ROM_HEADER(9999,0); // code 9999 hopefully free, here this means 'homebrew'

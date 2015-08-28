@@ -8,3 +8,4 @@ gfx.*
 *.sym
 *.asm
 *.sns
+/*.sms
