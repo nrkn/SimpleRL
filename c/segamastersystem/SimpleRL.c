@@ -64,19 +64,6 @@ void simple_rl(void)
 
     draw_char(px, py, '@');
   }
-  /*
-    while ((key = getch()) != 'q') {
-        mvaddch(py, px, ' ');
-        switch (key) {
-        case KEY_UP: move_to(px, py - 1); break;
-        case KEY_DOWN: move_to(px, py + 1); break;
-        case KEY_LEFT: move_to(px - 1, py); break;
-        case KEY_RIGHT: move_to(px + 1, py); break;
-        }
-        mvaddch(py, px, '@');
-    }
-    endwin();
-    */
 }
 
 void load_font (void) {
