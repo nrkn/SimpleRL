@@ -1,33 +1,33 @@
 const viewport = document.getElementById( 'viewport' )
 
-const map = [
-  '####  ####',
-  '#  ####  #',
-  '#        #',
-  '##      ##',
-  ' #      # ',
-  ' #      # ',
-  '##      ##',
-  '#        #',
-  '#  ####  #',
-  '####  ####'
-]
+const map = `
+####  ####
+#  ####  #
+#        #
+##      ##
+ #      # 
+ #      # 
+##      ##
+#        #
+#  ####  #
+####  ####`
 
 var player = {
   x: 2,
   y: 2
 }
 
+const dungeon = map.trim()
+  .split( '\n' )
+  .map( row => 
+    row.split( '' ) 
+  )
+
 const setTile = tile =>
-  map[ player.y ] = 
-    map[ player.y ].substr( 0, player.x ) + 
-    tile + 
-    map[ player.y ].substr( player.x + 1 )
+  dungeon[ player.y ][ player.x ] = tile
   
-const movePlayer = point => {
-  if( map[ point.y ][ point.x ] === ' ' )
-    player = point
-}
+const movePlayer = point => 
+  dungeon[ point.y ][ point.x ] === ' ' ? point : player
 
 const modifiers = {
   37: { x: -1, y: 0 },
@@ -39,10 +39,10 @@ const modifiers = {
 const tick = e => {
   setTile( ' ' )
   
-  if( e.keyCode in modifiers ){
+  if( e && e.keyCode in modifiers ){
     const modifier = modifiers[ e.keyCode ]
     
-    movePlayer({
+    player = movePlayer({
       x: player.x + modifier.x,
       y: player.y + modifier.y
     })
@@ -50,8 +50,10 @@ const tick = e => {
   
   setTile( '@' )
   
-  viewport.textContent = map.join( '\n' )
+  viewport.textContent = dungeon.map( row => 
+    row.join( '' ) 
+  ).join( '\n' )
 } 
 
 document.addEventListener( 'keyup', tick, false )
-tick( { keyCode: null } )
+tick()
